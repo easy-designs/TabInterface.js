@@ -1,3 +1,9 @@
+*v0.4.1* (2009-04-20)
+
+* added support for nested elements within a tab
+
+--
+
 *v0.4* (2009-04-20)
 
 * added support for ARIA Roles and States

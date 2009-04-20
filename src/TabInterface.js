@@ -2,7 +2,7 @@
 Function:       TabInterface()
 Author:         Aaron Gustafson (aaron at easy-designs dot net)
 Creation Date:  7 December 2006
-Version:        0.4
+Version:        0.4.1
 Homepage:       http://github.com/easy-designs/tabinterface.js
 License:        MIT License (see MIT-LICENSE)
 Note:           If you change or improve on this script, please let us know by
@@ -10,7 +10,7 @@ Note:           If you change or improve on this script, please let us know by
 ------------------------------------------------------------------------------*/
 function TabInterface( el, i ){
   // Public Properties
-  this.Version = '0.4'; // version
+  this.Version = '0.4.1'; // version
 
   // Private Properties
   var _i       = i;     // incrementor
@@ -110,9 +110,9 @@ function TabInterface( el, i ){
   function swap( e )
   {
     e = ( e ) ? e : event;
-    var tab = e.target || e.srcElement,
-    old_folder = document.getElementById( _active ),
-    new_folder = document.getElementById( tab.folder );
+    var tab = e.target || e.srcElement, old_folder = document.getElementById( _active );
+    tab = getTab( tab );
+    var new_folder = document.getElementById( tab.folder );
     removeClassName( document.getElementById( _active + '-tab' ), 'active-tab' );
     removeClassName( old_folder, 'visible' );
     old_folder.setAttribute( 'aria-hidden', 'true' );
@@ -135,6 +135,14 @@ function TabInterface( el, i ){
     }
     e.className = classes.join( ' ' );
   }
+  function getTab( tab )
+  {
+    while ( tab.nodeName.toLowerCase() != 'li' )
+    {
+      tab = tab.parentNode;
+    }
+    return tab;
+  }
   function moveFocus( e )
   {
     e = ( e ) ? e : event;
@@ -142,6 +150,7 @@ function TabInterface( el, i ){
     tab  = e.target || e.srcElement,
     key  = e.keyCode || e.charCode,
     pass = true;
+    tab = getTab( tab );
     switch ( key )
     {
       case 37: // left arrow
