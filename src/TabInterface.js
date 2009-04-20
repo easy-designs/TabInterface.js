@@ -2,7 +2,7 @@
 Function:       TabInterface()
 Author:         Aaron Gustafson (aaron at easy-designs dot net)
 Creation Date:  7 December 2006
-Version:        0.4.1
+Version:        0.4.2
 Homepage:       http://github.com/easy-designs/tabinterface.js
 License:        MIT License (see MIT-LICENSE)
 Note:           If you change or improve on this script, please let us know by
@@ -10,7 +10,7 @@ Note:           If you change or improve on this script, please let us know by
 ------------------------------------------------------------------------------*/
 function TabInterface( el, i ){
   // Public Properties
-  this.Version = '0.4.1'; // version
+  this.Version = '0.4.2'; // version
 
   // Private Properties
   var _i       = i;     // incrementor
@@ -70,6 +70,7 @@ function TabInterface( el, i ){
     _cabinet.innerHTML = '';
     removeClassName( _cabinet, 'tabbed' );
     addClassName( _cabinet, 'tabbed-on' );
+    _cabinet.appendChild( _index );
     var aLen = arr.length;
     for( var k=0; k<aLen; k++ ){
       // build the div
@@ -84,7 +85,7 @@ function TabInterface( el, i ){
           tab.folder = folder.getAttribute( 'id' );
           tab.setAttribute( 'id', tab.folder + '-tab' );
           tab.onclick = swap;         // set the action
-          tab.onkeypress = moveFocus; // add the keyboard control
+          tab.onkeydown = moveFocus;  // add the keyboard control
       var heading = folder.getElementsByTagName( _tag )[0];
           if( heading.getAttribute( 'title' ) ){
             tab.innerHTML = heading.getAttribute( 'title' );
@@ -105,7 +106,6 @@ function TabInterface( el, i ){
     }
     // add the index
     addClassName( _index, 'tab-list' );
-    _cabinet.appendChild( _index );
   }
   function swap( e )
   {

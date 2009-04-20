@@ -1,3 +1,10 @@
+*v0.4.2* (2009-04-20)
+
+* changed the source order for the tabs (so they come before the panels, which will be more helpful in ARIA use)
+* changed the keyboard trigger to onkeydown
+
+--
+
 *v0.4.1* (2009-04-20)
 
 * added support for nested elements within a tab
