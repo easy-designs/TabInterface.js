@@ -3,8 +3,8 @@ Function:       TabInterface()
 Author:         Aaron Gustafson (aaron at easy-designs dot net)
 Creation Date:  7 December 2006
 Version:        0.4
-Homepage:       http://code.google.com/p/easy-designs/wiki/TabInterface
-License:        MIT License (see homepage)
+Homepage:       http://github.com/easy-designs/tabinterface.js
+License:        MIT License (see MIT-LICENSE)
 Note:           If you change or improve on this script, please let us know by
                 emailing the author (above) with a link to your demo page.
 ------------------------------------------------------------------------------*/
