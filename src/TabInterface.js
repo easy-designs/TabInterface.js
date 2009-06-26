@@ -2,7 +2,7 @@
 Function:       TabInterface()
 Author:         Aaron Gustafson (aaron at easy-designs dot net)
 Creation Date:  7 December 2006
-Version:        0.4.2
+Version:        0.4.3
 Homepage:       http://github.com/easy-designs/tabinterface.js
 License:        MIT License (see MIT-LICENSE)
 Note:           If you change or improve on this script, please let us know by
@@ -10,18 +10,17 @@ Note:           If you change or improve on this script, please let us know by
 ------------------------------------------------------------------------------*/
 function TabInterface( el, i ){
   // Public Properties
-  this.Version = '0.4.2'; // version
+  this.Version = '0.4.3'; // version
 
   // Private Properties
-  var _i       = i;     // incrementor
-  var _cabinet = el;    // the "cabinet" element (container)
-  var _id      = false; // ID of _cabinet
-  var _active  = false; // ID of the active "folder"
-  var _tag     = false; // tag we'll split it on
+  var
+  _i       = i,     // incrementor
+  _cabinet = el,    // the "cabinet" element (container)
+  _active  = false, // ID of the active "folder"
   // the tab list
-  var _index   = document.createElement( 'ul' );
+  _index   = document.createElement( 'ul' ),
   // prototype elements
-  var _els     = {
+  _els     = {
     div: document.createElement( 'div' ),
     li:  document.createElement( 'li' )
   };
@@ -29,6 +28,11 @@ function TabInterface( el, i ){
   // Private Methods
   function initialize()
   {
+    var _id, node, nextNode,
+    headers = [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ],
+    i, len, _tag, rexp,
+    arr, folder, tab, heading;
+    
     // set the id
     _id = el.getAttribute( 'id' ) || 'folder-' + _i;
     if( !el.getAttribute( 'id' ) ) el.setAttribute( 'id', _id );
@@ -44,9 +48,9 @@ function TabInterface( el, i ){
     _els.li.setAttribute( 'tabindex', '-1' );
 
     // trim whitespace
-    var node = _cabinet.firstChild;
+    node = _cabinet.firstChild;
     while( node ){
-      var nextNode = node.nextSibling;
+      nextNode = node.nextSibling;
       if( node.nodeType == 3 &&
           !( /\S/ ).test( node.nodeValue ) )
         _cabinet.removeChild( node );
@@ -54,9 +58,7 @@ function TabInterface( el, i ){
     }
 
     // find the first heading
-    var headers = [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ];
-    var hLen = headers.length;
-    for( var i=0; i<hLen; i++ ){
+    for( i=0, len=headers.length; i<len; i++ ){
       if( _cabinet.firstChild.nodeName.toLowerCase() == headers[i] ){
         _tag = headers[i];
         break;
@@ -64,38 +66,37 @@ function TabInterface( el, i ){
     }
 
     // establish the folders
-    var rexp = new RegExp( '<(' + _tag + ')', 'ig' );
-    var arr  = _cabinet.innerHTML.replace( rexp, "||||<$1" ).split( '||||' );
-        arr.shift();
+    rexp = new RegExp( '<(' + _tag + ')', 'ig' );
+    arr  = _cabinet.innerHTML.replace( rexp, "||||<$1" ).split( '||||' );
+    arr.shift();
     _cabinet.innerHTML = '';
     removeClassName( _cabinet, 'tabbed' );
     addClassName( _cabinet, 'tabbed-on' );
     _cabinet.appendChild( _index );
-    var aLen = arr.length;
-    for( var k=0; k<aLen; k++ ){
+    for( i=0, len=arr.length; i<len; i++ ){
       // build the div
-      var folder = _els.div.cloneNode( true );
-          addClassName( folder, 'folder' );
-          folder.setAttribute( 'id', _id + '-' + k );
-          folder.setAttribute( 'aria-labelledby', _id + '-' + k + '-tab' );
-          folder.innerHTML = arr[k];
-          _cabinet.appendChild( folder );
+      folder = _els.div.cloneNode( true );
+      addClassName( folder, 'folder' );
+      folder.setAttribute( 'id', _id + '-' + i );
+      folder.setAttribute( 'aria-labelledby', _id + '-' + i + '-tab' );
+      folder.innerHTML = arr[i];
+      _cabinet.appendChild( folder );
       // build the tab
-      var tab = _els.li.cloneNode( true );
-          tab.folder = folder.getAttribute( 'id' );
-          tab.setAttribute( 'id', tab.folder + '-tab' );
-          tab.onclick = swap;         // set the action
-          tab.onkeydown = moveFocus;  // add the keyboard control
-      var heading = folder.getElementsByTagName( _tag )[0];
-          if( heading.getAttribute( 'title' ) ){
-            tab.innerHTML = heading.getAttribute( 'title' );
-          } else {
-            tab.innerHTML = heading.innerHTML;
-            addClassName( heading, 'hidden' );
-          }
-          _index.appendChild( tab );
+      tab = _els.li.cloneNode( true );
+      tab.folder = folder.getAttribute( 'id' );
+      tab.setAttribute( 'id', tab.folder + '-tab' );
+      tab.onclick = swap;         // set the action
+      tab.onkeydown = moveFocus;  // add the keyboard control
+      heading = folder.getElementsByTagName( _tag )[0];
+      if( heading.getAttribute( 'title' ) ){
+        tab.innerHTML = heading.getAttribute( 'title' );
+      } else {
+        tab.innerHTML = heading.innerHTML;
+        addClassName( heading, 'hidden' );
+      }
+      _index.appendChild( tab );
       // active?
-      if( k == 0 ){
+      if( i === 0 ){
         addClassName( folder, 'visible' );
         folder.setAttribute( 'aria-hidden', 'false' );
         tab.setAttribute( 'aria-selected', 'true' );
@@ -110,9 +111,12 @@ function TabInterface( el, i ){
   function swap( e )
   {
     e = ( e ) ? e : event;
-    var tab = e.target || e.srcElement, old_folder = document.getElementById( _active );
+    var
+    tab = e.target || e.srcElement,
+    old_folder = document.getElementById( _active ),
+    new_folder;
     tab = getTab( tab );
-    var new_folder = document.getElementById( tab.folder );
+    new_folder = document.getElementById( tab.folder );
     removeClassName( document.getElementById( _active + '-tab' ), 'active-tab' );
     removeClassName( old_folder, 'visible' );
     old_folder.setAttribute( 'aria-hidden', 'true' );
