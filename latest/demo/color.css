@@ -1,0 +1,19 @@
+/* =Images */
+img {
+  background: #fff;
+  border-color: #bfa55f;
+}
+
+.folder {
+  background: #ffeebf;
+  border-color: #bfa55f;
+}
+.tab-list li {
+  background: #dfc88b url(tab-list_li.png) bottom left repeat-x;
+  border-color: #bfa55f;
+  color: #000;
+}
+.tab-list .active-tab {
+  background: #ffeebf;
+  border-bottom-color: #ffeebf;
+}

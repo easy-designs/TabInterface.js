@@ -1,0 +1,13 @@
+.tabbed-on img {
+  display: none;
+}
+.visible img {
+  display: block;
+  position: relative;
+}
+.folder {
+  height: 240px;
+}
+.tab-list li {
+  position: relative;
+}

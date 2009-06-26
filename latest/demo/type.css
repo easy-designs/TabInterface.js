@@ -1,0 +1,108 @@
+/* =Reset */
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td { margin: 0; padding: 0; border: 0; outline: 0; font-weight: inherit; font-style: inherit; font-size: 100%; font-family: inherit; vertical-align: baseline; }
+:focus { outline: 0; }
+body { line-height: 1; color: black; background: white; }
+ol, ul { list-style: none; }
+table { border-collapse: collapse; border-spacing: 0; }
+caption, th, td { text-align: left; font-weight: normal; }
+blockquote:before, blockquote:after, q:before, q:after { content: ""; }
+blockquote, q { quotes: "" ""; }
+
+/* =Body */
+body {
+  font: 62.5% "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  padding: 1em;
+  width: 500px;
+}
+
+/* =Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: Georgia, Times, serif;
+  font-weight: bold;
+  line-height: 1.5;
+  margin: .5em 0 0;
+}
+h1 {
+  font-size: 2.4em;
+}
+h2 {
+  font-size: 1.4em;
+  line-height: 1.286;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+h3 {
+  font-size: 1.2em;
+}
+
+/* =Paragraphs */
+p {
+  font-size: 1.2em;
+  line-height: 1.5;
+  margin: 0 0 1.5em;
+}
+#copyright {
+  font-size: 1em;
+  font-style: italic;
+  line-height: 1.2;
+}
+
+/* =Lists */
+dl {
+  font-size: 1.2em;
+  line-height: 1.5;
+  margin: 0 0 1.5em;
+}
+dt {
+  font-weight: bold;
+  padding: 0 1em 0 0;
+  text-align: right;
+  white-space: nowrap;
+  width: 100px;
+  float: left;
+  clear: left;
+}
+dt:after {
+  content: ':';
+}
+dl:after {
+  clear: both;
+  content: '.';
+  display: block;
+  height: 0;
+  visibility: hidden;
+}
+dl.single:after {
+  display: none;
+}
+dl.single dt,
+dl.single dd {
+  float: none;
+  display: inline;
+  white-space: normal;
+}
+dl.single dt {
+  padding: 0;
+  width: auto;
+}
+ol, ul {
+  font-size: 1.2em;
+  line-height: 1.5;
+  padding: 0 0 1.5em;
+}
+ol {
+  margin-left: 2em;
+  list-style: decimal;
+}
+li ol, li ul {
+  font-size: 1em;
+}
+
+/* =Images */
+img {
+  border: solid;
+  border-width: 1px 2px 2px 1px;
+  float: right;
+  margin: 0 .5em 0 1em;  
+  padding: 10px;
+}
