@@ -1,1 +1,49 @@
-Coming Soon
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>TabInterface</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" type="text/css" href="http://easy-designs.github.com/github.css" />
+  <!--[if lte IE 6]>
+  <link rel="stylesheet" type="text/css" media="all" href="latest/demo/ie6.css" />
+  <![endif]-->
+</head>
+<body>
+  <h1>TabInterface</h1>
+  <p>TabInterface is an unobtrusive JavaScript object that generates an accessible tabbed interface based on heading levels.</p>
+
+  <h2>Current Version</h2>
+  <p>0.4.3 (28 June 2009)</p>
+  
+  <h2>Requirements</h2>
+  <p>None.</p>
+  
+  <h2>Use</h2>
+  <p>To use, simply include TabInterface.js (found in ./src) and then classify elements you want tabbed as "tabbed". Then add a new anonymous function to your load event (<code class="js">window</code> or DOM) that looks for these elements and passes them to a new instance of <code class="js">TabInterface</code>. For example, using jQuery, you could say:</p>
+  
+  <pre><code class="js">if( typeOf( TabInterface ) != 'undefined' &&
+    document.getElementById &amp;&amp;
+    document.getElementsByTagName &amp;&amp;
+    document.createElement ){
+  $(document).ready(function(){
+    $('.tabbed').each(function(i){
+      new TabInterface( this, i );
+    });
+  });
+}</code></pre>
+
+  <p>Note: Tab labels will be either the header content or the heading's <code class="html">title</code> attribute.</p>
+
+  <h2>How it works</h2>
+  <p>Content is split using the first heading level (<code class="html">h1</code>-<code class="html">h6</code>) encountered within the "tabbed" container.</p>
+
+  <h2>Demo</h2>
+  <iframe src="latest/demo/index.html" style="border: 0; width: 580px; height: 500px;"/>
+
+  <h2>License</h2>
+  <p>TabInterface is distributed under the liberal <a href="latest/MIT-LICENSE">MIT License</a>.</p>
+  
+  <p id="copyright">Copyright &copy; 2005-2009 Aaron Gustafson</p>
+  
+</body>
+</html>
