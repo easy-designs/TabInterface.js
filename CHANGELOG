@@ -1,3 +1,11 @@
+*v0.4.3* (2009-06-28)
+
+* simplified some of the JavaScript by reducing variables, combining declarations, etc.
+* cleaned up the class names a bit
+* adjusted the demo to reflect the new class names and to use namespaced CSS
+
+--
+
 *v0.4.2* (2009-04-20)
 
 * changed the source order for the tabs (so they come before the panels, which will be more helpful in ARIA use)

@@ -8,19 +8,17 @@ License:        MIT License (see MIT-LICENSE)
 Note:           If you change or improve on this script, please let us know by
                 emailing the author (above) with a link to your demo page.
 ------------------------------------------------------------------------------*/
-function TabInterface( el, i ){
+function TabInterface( _cabinet, _i ){
   // Public Properties
   this.Version = '0.4.3'; // version
 
   // Private Properties
   var
-  _i       = i,     // incrementor
-  _cabinet = el,    // the "cabinet" element (container)
   _active  = false, // ID of the active "folder"
   // the tab list
   _index   = document.createElement( 'ul' ),
   // prototype elements
-  _els     = {
+  _cabinets     = {
     div: document.createElement( 'div' ),
     li:  document.createElement( 'li' )
   };
@@ -34,18 +32,18 @@ function TabInterface( el, i ){
     arr, folder, tab, heading;
     
     // set the id
-    _id = el.getAttribute( 'id' ) || 'folder-' + _i;
-    if( !el.getAttribute( 'id' ) ) el.setAttribute( 'id', _id );
+    _id = _cabinet.getAttribute( 'id' ) || 'folder-' + _i;
+    if( !_cabinet.getAttribute( 'id' ) ) _cabinet.setAttribute( 'id', _id );
     
     // set the ARIA roles
-    el.parentNode.setAttribute( 'role', 'application' );
-    el.setAttribute( 'role', 'presentation' );
+    _cabinet.parentNode.setAttribute( 'role', 'application' );
+    _cabinet.setAttribute( 'role', 'presentation' );
     _index.setAttribute( 'role', 'tablist' );
-    _els.div.setAttribute( 'role', 'tabpanel' );
-    _els.div.setAttribute( 'aria-hidden', 'true' );
-    _els.li.setAttribute( 'role', 'tab' );
-    _els.li.setAttribute( 'aria-selected', 'false' );
-    _els.li.setAttribute( 'tabindex', '-1' );
+    _cabinets.div.setAttribute( 'role', 'tabpanel' );
+    _cabinets.div.setAttribute( 'aria-hidden', 'true' );
+    _cabinets.li.setAttribute( 'role', 'tab' );
+    _cabinets.li.setAttribute( 'aria-selected', 'false' );
+    _cabinets.li.setAttribute( 'tabindex', '-1' );
 
     // trim whitespace
     node = _cabinet.firstChild;
@@ -65,26 +63,29 @@ function TabInterface( el, i ){
       }
     }
 
+    // flip it on
+    addClassName( _cabinet, 'tabbed-on' );
+    removeClassName( _cabinet, 'tabbed' );
     // establish the folders
     rexp = new RegExp( '<(' + _tag + ')', 'ig' );
     arr  = _cabinet.innerHTML.replace( rexp, "||||<$1" ).split( '||||' );
     arr.shift();
     _cabinet.innerHTML = '';
-    removeClassName( _cabinet, 'tabbed' );
-    addClassName( _cabinet, 'tabbed-on' );
+    // add the index
+    addClassName( _index, 'index' );
     _cabinet.appendChild( _index );
+    // re-insert the chunks
     for( i=0, len=arr.length; i<len; i++ ){
       // build the div
-      folder = _els.div.cloneNode( true );
+      folder = _cabinets.div.cloneNode( true );
       addClassName( folder, 'folder' );
       folder.setAttribute( 'id', _id + '-' + i );
       folder.setAttribute( 'aria-labelledby', _id + '-' + i + '-tab' );
       folder.innerHTML = arr[i];
       _cabinet.appendChild( folder );
       // build the tab
-      tab = _els.li.cloneNode( true );
-      tab.folder = folder.getAttribute( 'id' );
-      tab.setAttribute( 'id', tab.folder + '-tab' );
+      tab = _cabinets.li.cloneNode( true );
+      tab.setAttribute( 'id', _id + '-' + i + '-tab' );
       tab.onclick = swap;         // set the action
       tab.onkeydown = moveFocus;  // add the keyboard control
       heading = folder.getElementsByTagName( _tag )[0];
@@ -102,11 +103,9 @@ function TabInterface( el, i ){
         tab.setAttribute( 'aria-selected', 'true' );
         tab.setAttribute( 'tabindex', '0' );
         _active = folder.getAttribute( 'id' );
-        addClassName( tab, 'active-tab' );
+        addClassName( tab, 'active' );
       }
     }
-    // add the index
-    addClassName( _index, 'tab-list' );
   }
   function swap( e )
   {
@@ -116,14 +115,14 @@ function TabInterface( el, i ){
     old_folder = document.getElementById( _active ),
     new_folder;
     tab = getTab( tab );
-    new_folder = document.getElementById( tab.folder );
-    removeClassName( document.getElementById( _active + '-tab' ), 'active-tab' );
+    new_folder = document.getElementById( tab.getAttribute( 'id' ).replace( '-tab', '' ) );
+    removeClassName( document.getElementById( _active + '-tab' ), 'active' );
     removeClassName( old_folder, 'visible' );
     old_folder.setAttribute( 'aria-hidden', 'true' );
-    addClassName( tab, 'active-tab' );
+    addClassName( tab, 'active' );
     addClassName( new_folder, 'visible' );
     new_folder.setAttribute( 'aria-hidden', 'false' );
-    _active = tab.folder;
+    _active = new_folder.getAttribute( 'id' );
   }
   function addClassName( e, c )
   {
