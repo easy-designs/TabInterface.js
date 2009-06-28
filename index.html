@@ -21,7 +21,7 @@
   <h2>Use</h2>
   <p>To use, simply include TabInterface.js (found in ./src) and then classify elements you want tabbed as "tabbed". Then add a new anonymous function to your load event (<code class="js">window</code> or DOM) that looks for these elements and passes them to a new instance of <code class="js">TabInterface</code>. For example, using jQuery, you could say:</p>
   
-  <pre><code class="js">if( typeOf( TabInterface ) != 'undefined' &&
+  <pre><code class="js">if( typeOf( TabInterface ) != 'undefined' &amp;&amp;
     document.getElementById &amp;&amp;
     document.getElementsByTagName &amp;&amp;
     document.createElement ){
@@ -38,7 +38,7 @@
   <p>Content is split using the first heading level (<code class="html">h1</code>-<code class="html">h6</code>) encountered within the "tabbed" container.</p>
 
   <h2>Demo</h2>
-  <iframe src="latest/demo/index.html" style="border: 0; width: 580px; height: 500px;"/>
+  <iframe src="latest/demo/index.html" style="border: 0; width: 580px; height: 500px;"></iframe>
 
   <h2>Download</h2>
   <ul>
