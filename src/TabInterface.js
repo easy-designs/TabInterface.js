@@ -18,7 +18,7 @@ function TabInterface( _cabinet, _i ){
   // the tab list
   _index   = document.createElement( 'ul' ),
   // prototype elements
-  _cabinets     = {
+  _els     = {
     div: document.createElement( 'div' ),
     li:  document.createElement( 'li' )
   };
@@ -39,11 +39,11 @@ function TabInterface( _cabinet, _i ){
     _cabinet.parentNode.setAttribute( 'role', 'application' );
     _cabinet.setAttribute( 'role', 'presentation' );
     _index.setAttribute( 'role', 'tablist' );
-    _cabinets.div.setAttribute( 'role', 'tabpanel' );
-    _cabinets.div.setAttribute( 'aria-hidden', 'true' );
-    _cabinets.li.setAttribute( 'role', 'tab' );
-    _cabinets.li.setAttribute( 'aria-selected', 'false' );
-    _cabinets.li.setAttribute( 'tabindex', '-1' );
+    _els.div.setAttribute( 'role', 'tabpanel' );
+    _els.div.setAttribute( 'aria-hidden', 'true' );
+    _els.li.setAttribute( 'role', 'tab' );
+    _els.li.setAttribute( 'aria-selected', 'false' );
+    _els.li.setAttribute( 'tabindex', '-1' );
 
     // trim whitespace
     node = _cabinet.firstChild;
@@ -77,14 +77,14 @@ function TabInterface( _cabinet, _i ){
     // re-insert the chunks
     for( i=0, len=arr.length; i<len; i++ ){
       // build the div
-      folder = _cabinets.div.cloneNode( true );
+      folder = _els.div.cloneNode( true );
       addClassName( folder, 'folder' );
       folder.setAttribute( 'id', _id + '-' + i );
       folder.setAttribute( 'aria-labelledby', _id + '-' + i + '-tab' );
       folder.innerHTML = arr[i];
       _cabinet.appendChild( folder );
       // build the tab
-      tab = _cabinets.li.cloneNode( true );
+      tab = _els.li.cloneNode( true );
       tab.setAttribute( 'id', _id + '-' + i + '-tab' );
       tab.onclick = swap;         // set the action
       tab.onkeydown = moveFocus;  // add the keyboard control
