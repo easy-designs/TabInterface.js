@@ -10,7 +10,7 @@ Note:           If you change or improve on this script, please let us know by
 ------------------------------------------------------------------------------*/
 function TabInterface( _cabinet, _i ){
   // Public Properties
-  this.Version = '0.4.3'; // version
+  this.Version = '0.4.4'; // version
 
   // Private Properties
   var

@@ -1,3 +1,9 @@
+*v0.4.4* (2009-07-17)
+
+* made a few tweaks to the ARIA stuff
+
+--
+
 *v0.4.3* (2009-06-28)
 
 * simplified some of the JavaScript by reducing variables, combining declarations, etc.
