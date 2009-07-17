@@ -86,8 +86,10 @@ function TabInterface( _cabinet, _i ){
       // build the tab
       tab = _els.li.cloneNode( true );
       tab.setAttribute( 'id', _id + '-' + i + '-tab' );
+      tab.setAttribute( 'aria-describedby', _id + '-' + i );
       tab.onclick = swap;         // set the action
       tab.onkeydown = moveFocus;  // add the keyboard control
+      tab.onfocus = swap;
       heading = folder.getElementsByTagName( _tag )[0];
       if( heading.getAttribute( 'title' ) ){
         tab.innerHTML = heading.getAttribute( 'title' );
@@ -99,10 +101,11 @@ function TabInterface( _cabinet, _i ){
       // active?
       if( i === 0 ){
         addClassName( folder, 'visible' );
-        folder.setAttribute( 'aria-hidden', 'false' );
+        folder.removeAttribute( 'aria-hidden' );
         tab.setAttribute( 'aria-selected', 'true' );
         tab.setAttribute( 'tabindex', '0' );
         _active = folder.getAttribute( 'id' );
+        _cabinet.setAttribute('aria-activedescendant',_active);
         addClassName( tab, 'active' );
       }
     }
@@ -113,16 +116,23 @@ function TabInterface( _cabinet, _i ){
     var
     tab = e.target || e.srcElement,
     old_folder = document.getElementById( _active ),
+    old_tab = document.getElementById( _active + '-tab' ),
     new_folder;
     tab = getTab( tab );
     new_folder = document.getElementById( tab.getAttribute( 'id' ).replace( '-tab', '' ) );
-    removeClassName( document.getElementById( _active + '-tab' ), 'active' );
+    removeClassName( old_tab, 'active' );
+    old_tab.setAttribute( 'aria-selected', 'false' );
+    tab.setAttribute( 'tabindex', '-1' );
     removeClassName( old_folder, 'visible' );
     old_folder.setAttribute( 'aria-hidden', 'true' );
     addClassName( tab, 'active' );
+    tab.setAttribute( 'aria-selected', 'true' );
+    tab.setAttribute( 'tabindex', '0' );
     addClassName( new_folder, 'visible' );
-    new_folder.setAttribute( 'aria-hidden', 'false' );
+    new_folder.removeAttribute( 'aria-hidden' );
     _active = new_folder.getAttribute( 'id' );
+    _cabinet.setAttribute( 'aria-activedescendant', _active );
+    new_folder.firstChild.focus();
   }
   function addClassName( e, c )
   {
