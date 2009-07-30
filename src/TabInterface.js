@@ -2,7 +2,7 @@
 Function:       TabInterface()
 Author:         Aaron Gustafson (aaron at easy-designs dot net)
 Creation Date:  7 December 2006
-Version:        0.4.3
+Version:        0.4.5
 Homepage:       http://github.com/easy-designs/tabinterface.js
 License:        MIT License (see MIT-LICENSE)
 Note:           If you change or improve on this script, please let us know by
@@ -10,7 +10,7 @@ Note:           If you change or improve on this script, please let us know by
 ------------------------------------------------------------------------------*/
 function TabInterface( _cabinet, _i ){
   // Public Properties
-  this.Version = '0.4.4'; // version
+  this.Version = '0.4.5'; // version
 
   // Private Properties
   var
@@ -36,11 +36,11 @@ function TabInterface( _cabinet, _i ){
     if( !_cabinet.getAttribute( 'id' ) ) _cabinet.setAttribute( 'id', _id );
     
     // set the ARIA roles
-    _cabinet.parentNode.setAttribute( 'role', 'application' );
-    _cabinet.setAttribute( 'role', 'presentation' );
+    _cabinet.setAttribute( 'role', 'application' );
     _index.setAttribute( 'role', 'tablist' );
     _els.div.setAttribute( 'role', 'tabpanel' );
     _els.div.setAttribute( 'aria-hidden', 'true' );
+    _els.div.setAttribute( 'tabindex', '-1' );
     _els.li.setAttribute( 'role', 'tab' );
     _els.li.setAttribute( 'aria-selected', 'false' );
     _els.li.setAttribute( 'tabindex', '-1' );
@@ -101,7 +101,8 @@ function TabInterface( _cabinet, _i ){
       // active?
       if( i === 0 ){
         addClassName( folder, 'visible' );
-        folder.removeAttribute( 'aria-hidden' );
+        folder.setAttribute( 'aria-hidden', 'false' );
+        folder.setAttribute( 'tabindex', '0' );
         tab.setAttribute( 'aria-selected', 'true' );
         tab.setAttribute( 'tabindex', '0' );
         _active = folder.getAttribute( 'id' );
@@ -122,17 +123,18 @@ function TabInterface( _cabinet, _i ){
     new_folder = document.getElementById( tab.getAttribute( 'id' ).replace( '-tab', '' ) );
     removeClassName( old_tab, 'active' );
     old_tab.setAttribute( 'aria-selected', 'false' );
-    tab.setAttribute( 'tabindex', '-1' );
+    old_tab.setAttribute( 'tabindex', '-1' );
     removeClassName( old_folder, 'visible' );
     old_folder.setAttribute( 'aria-hidden', 'true' );
+    old_folder.setAttribute( 'tabindex', '-1' );
     addClassName( tab, 'active' );
     tab.setAttribute( 'aria-selected', 'true' );
     tab.setAttribute( 'tabindex', '0' );
     addClassName( new_folder, 'visible' );
-    new_folder.removeAttribute( 'aria-hidden' );
+    new_folder.setAttribute( 'aria-hidden', 'false' );
+    new_folder.setAttribute( 'tabindex', '0' );
     _active = new_folder.getAttribute( 'id' );
     _cabinet.setAttribute( 'aria-activedescendant', _active );
-    new_folder.firstChild.focus();
   }
   function addClassName( e, c )
   {
@@ -167,12 +169,12 @@ function TabInterface( _cabinet, _i ){
     switch ( key )
     {
       case 37: // left arrow
-      case 40: // down arrow
+      case 38: // up arrow
         move( tab, 'previous', false );
         pass = false;
         break;
       case 39: // right arrow
-      case 38: // up arrow
+      case 40: // down arrow
         move( tab, 'next', false );
         pass = false;
         break;
@@ -187,14 +189,6 @@ function TabInterface( _cabinet, _i ){
       case 27: // escape
         tab.blur();
         pass = false;
-        break;
-      case 13: // enter
-      case 32: // space
-        swap( e );
-        pass = false;
-        break;
-      default:
-        pass = true;
         break;
     }
     if ( ! pass )
