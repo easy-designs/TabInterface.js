@@ -1,10 +1,10 @@
 == TabInterface
 
-TabInterface generates all of the code necessary to create a tabbed interface in JavaScript.
+TabInterface generates all of the code necessary to create an accessible tabbed interface in JavaScript.
 
 == Current Version
 
-0.4 (17 June 2007)
+1.0 (11 August 2010)
 
 == Requirements
 
