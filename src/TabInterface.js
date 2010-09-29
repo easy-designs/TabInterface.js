@@ -2,13 +2,13 @@
 Function:       TabInterface()
 Author:         Aaron Gustafson (aaron at easy-designs dot net)
 Creation Date:  7 December 2006
-Version:        1.1
+Version:        1.2
 Homepage:       http://github.com/easy-designs/TabInterface.js
 License:        MIT License (see MIT-LICENSE)
 ------------------------------------------------------------------------------*/
 function TabInterface( _cabinet, _i ){
   // Public Properties
-  this.Version = '1.1'; // version
+  this.Version = '1.2'; // version
 
   // Private Properties
   var
@@ -17,7 +17,7 @@ function TabInterface( _cabinet, _i ){
   _index   = document.createElement( 'ul' ),
   // prototype elements
   _els     = {
-    div: document.createElement( 'div' ),
+    section: document.createElement( 'section' ),
     li:  document.createElement( 'li' )
   };
 
@@ -25,7 +25,7 @@ function TabInterface( _cabinet, _i ){
   function initialize()
   {
     var _id, node, nextNode,
-    headers = [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ],
+    headers = [ 'header', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ],
     i, len, _tag, rexp,
     arr, folder, tab, heading;
     
@@ -36,9 +36,9 @@ function TabInterface( _cabinet, _i ){
     // set the ARIA roles
     _cabinet.setAttribute( 'role', 'application' );
     _index.setAttribute( 'role', 'tablist' );
-    _els.div.setAttribute( 'role', 'tabpanel' );
-    _els.div.setAttribute( 'aria-hidden', 'true' );
-    _els.div.setAttribute( 'tabindex', '-1' );
+    _els.section.setAttribute( 'role', 'tabpanel' );
+    _els.section.setAttribute( 'aria-hidden', 'true' );
+    _els.section.setAttribute( 'tabindex', '-1' );
     _els.li.setAttribute( 'role', 'tab' );
     _els.li.setAttribute( 'aria-selected', 'false' );
     _els.li.setAttribute( 'tabindex', '-1' );
@@ -74,8 +74,8 @@ function TabInterface( _cabinet, _i ){
     _cabinet.appendChild( _index );
     // re-insert the chunks
     for( i=0, len=arr.length; i<len; i++ ){
-      // build the div
-      folder = _els.div.cloneNode( true );
+      // build the section
+      folder = _els.section.cloneNode( true );
       addClassName( folder, 'folder' );
       folder.setAttribute( 'id', _id + '-' + i );
       folder.setAttribute( 'aria-labelledby', _id + '-' + i + '-tab' );

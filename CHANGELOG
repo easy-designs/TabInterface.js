@@ -1,3 +1,10 @@
+*v1.2* (2010-09-29)
+
+* move to HTML5 section elements from divs
+* added HTML5 header to the allowed header indication elements
+
+--
+
 *v1.1* (2010-09-29)
 
 * change to ARIA spec: adding aria-controls
