@@ -4,7 +4,7 @@ TabInterface generates all of the code necessary to create an accessible tabbed 
 
 == Current Version
 
-1.0 (11 August 2010)
+1.2 (29 September 2010)
 
 == Requirements
 
@@ -43,7 +43,7 @@ Note: Tab labels will be either the header content or the heading's TITLE value.
 
 == How it works
 
-Content is split using the first heading level (H1-H6) encountered within the "tabbed" container.
+Content is split using the first heading level (H1-H6) or HEADING element encountered within the "tabbed" container.
 
 == Demo
 
