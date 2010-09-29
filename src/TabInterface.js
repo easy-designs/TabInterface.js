@@ -2,13 +2,13 @@
 Function:       TabInterface()
 Author:         Aaron Gustafson (aaron at easy-designs dot net)
 Creation Date:  7 December 2006
-Version:        1.0
+Version:        1.1
 Homepage:       http://github.com/easy-designs/TabInterface.js
 License:        MIT License (see MIT-LICENSE)
 ------------------------------------------------------------------------------*/
 function TabInterface( _cabinet, _i ){
   // Public Properties
-  this.Version = '1.0'; // version
+  this.Version = '1.1'; // version
 
   // Private Properties
   var
@@ -84,7 +84,8 @@ function TabInterface( _cabinet, _i ){
       // build the tab
       tab = _els.li.cloneNode( true );
       tab.setAttribute( 'id', _id + '-' + i + '-tab' );
-      tab.setAttribute( 'aria-describedby', _id + '-' + i );
+      tab.setAttribute( 'aria-controls', _id + '-' + i );
+			tab.setAttribute( 'aria-describedby', _id + '-' + i );
       tab.onclick = swap;         // set the action
       tab.onkeydown = moveFocus;  // add the keyboard control
       tab.onfocus = swap;
