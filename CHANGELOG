@@ -1,3 +1,11 @@
+*v1.3* (2011-04-05)
+
+* Adjusted tabbing to remove the tabpanels from the tab flow
+* Added "Enter" functionality to focus tabpanel from tab
+* Added ability to circle back to the beginning (or end) of the tablist when the end is reached
+
+--
+
 *v1.2* (2010-09-29)
 
 * move to HTML5 section elements from divs
