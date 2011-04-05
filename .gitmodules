@@ -1,3 +1,0 @@
-[submodule "./latest"]
-	path = ./latest
-	url = git://github.com/easy-designs/tabinterface.js.git
