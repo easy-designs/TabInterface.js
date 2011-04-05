@@ -52,7 +52,8 @@ h1 {
 }
 .tabbed-on .index li:hover {
 }
-.tabbed-on .index li:focus {
+.tabbed-on .index li:focus,
+.tabbed-on .folder:focus {
   outline: 1px dotted;
 }
 .tabbed-on .index .active {
