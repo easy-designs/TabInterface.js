@@ -1,0 +1,13 @@
+.tabbed-on img {
+  display: none;
+}
+.tabbed-on .visible img {
+  display: block;
+  position: relative;
+}
+.tabbed-on .folder {
+  height: 240px;
+}
+.tabbed-on .index li {
+  position: relative;
+}
