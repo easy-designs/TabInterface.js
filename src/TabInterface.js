@@ -131,7 +131,7 @@ function TabInterface( _cabinet, _i ){
 		old_tab = document.getElementById( _active + '-tab' ),
 		new_folder;
 		tab = getTab( tab );
-		new_folder = document.getElementById( tab.getAttribute( 'id' ).replace( '-tab', '' ) );
+		new_folder = document.getElementById( tab.getAttribute( 'aria-describedby' ) );
 		removeClassName( old_tab, 'active' );
 		old_tab.setAttribute( 'aria-selected', 'false' );
 		old_tab.setAttribute( 'tabindex', '-1' );
