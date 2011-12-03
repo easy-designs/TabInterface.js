@@ -1,3 +1,10 @@
+*v1.4* (2011-12-03)
+
+* Made ARIA properties the means by which data about the tab interface is stored (rather than internal variables)
+* cleaned up some of the code and optimized it
+* made sure that even if an iterator isn’t supplied, the code works well
+
+--
 *v1.3* (2011-04-05)
 
 * Adjusted tabbing to remove the tabpanels from the tab flow

@@ -8,7 +8,7 @@ License:		MIT License (see MIT-LICENSE)
 ------------------------------------------------------------------------------*/
 ;function TabInterface( _cabinet, _i ){
 	// Public Properties
-	this.Version = '1.3'; // version
+	this.Version = '1.4'; // version
 	
 	// make sure we have a unique iterator if one wasn’t passed
 	_i = _i || ( new Date() ).getTime();
@@ -27,14 +27,14 @@ License:		MIT License (see MIT-LICENSE)
 	{
 		var
 		headers	= [ 'header', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ],
-		_tag	= false, 
-		_id, node, nextNode, i, len, rexp, arr, folder, folder_id, tab, tab_id, heading;
+		tag		= false, 
+		id, node, nextNode, i, len, rexp, arr, folder, folder_id, tab, tab_id, heading;
 
 		// set the id
-		_id = _cabinet.getAttribute( 'id' ) || 'folder-' + _i;
+		id = _cabinet.getAttribute( 'id' ) || 'folder-' + _i;
 		if ( !_cabinet.getAttribute( 'id' ) )
 		{
-			_cabinet.setAttribute( 'id', _id );
+			_cabinet.setAttribute( 'id', id );
 		}
 
 		// set the ARIA roles, tabindexes & base classes
@@ -67,18 +67,18 @@ License:		MIT License (see MIT-LICENSE)
 		{
 			if ( _cabinet.firstChild.nodeName.toLowerCase() == headers[i] )
 			{
-				_tag = headers[i];
+				tag = headers[i];
 				break;
 			}
 		}
 
-		if ( _tag )
+		if ( tag )
 		{
 			// flip it on
 			addClassName( _cabinet, 'tabbed-on' );
 			removeClassName( _cabinet, 'tabbed' );
 			// establish the folders
-			rexp = new RegExp( '<(' + _tag + ')', 'ig' );
+			rexp = new RegExp( '<(' + tag + ')', 'ig' );
 			arr	 = _cabinet.innerHTML.replace( rexp, "||||<$1" ).split( '||||' );
 			arr.shift();
 			_cabinet.innerHTML = '';
@@ -88,8 +88,8 @@ License:		MIT License (see MIT-LICENSE)
 			for ( i=0, len=arr.length; i<len; i++ )
 			{
 				// establish the ids
-				folder_id	= _id + '-' + i;
-				tab_id		= _id + '-' + i + '-tab';
+				folder_id	= id + '-' + i;
+				tab_id		= id + '-' + i + '-tab';
 				// build the section
 				folder = _els.section.cloneNode( true );
 				folder.setAttribute( 'id', folder_id );
@@ -104,7 +104,7 @@ License:		MIT License (see MIT-LICENSE)
 				tab.onclick		= swap;		  // set the action
 				tab.onfocus		= swap;
 				tab.onkeydown	= moveFocus;  // add the keyboard control
-				heading = folder.getElementsByTagName( _tag )[0];
+				heading = folder.getElementsByTagName( tag )[0];
 				if ( heading.getAttribute( 'title' ) )
 				{
 					tab.innerHTML = heading.getAttribute( 'title' );
