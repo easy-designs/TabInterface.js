@@ -47,8 +47,8 @@ Note: Tab labels will be either the header content or the heading's TITLE value.
 Content is split using the first heading level (H1-H6) or HEADING element encountered within the "tabbed" container.
 
 ## Changelog
-[Changelog](CHANGELOG.md)
+[See the changes](CHANGELOG.md)
 
 ## License
 
-TabInterface is distributed under the liberal MIT License
+TabInterface is distributed under the liberal [MIT License](LICENSE.md)
