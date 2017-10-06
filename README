@@ -18,7 +18,7 @@ TabInterface is distributed under the liberal MIT License.
 
 To use, simply include TabInterface.js (found in ./min) and then classify elements you want tabbed as "tabbed". Then add a new anonymous function to your load event (`window` or DOM). For example:
 
-```
+```javascript
 if( typeOf( TabInterface ) != 'undefined' &&
     document.getElementById &&
     document.getElementsByTagName &&
@@ -37,6 +37,7 @@ if( typeOf( TabInterface ) != 'undefined' &&
     }
   } );
 }
+```
 ```
 
 Many libraries, such as Prototype and jQuery, offer nicer-looking means of collecting elements by CLASS and and those could certainly be substituted for the brute force testing seen above.
