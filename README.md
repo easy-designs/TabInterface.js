@@ -42,11 +42,12 @@ Many libraries, such as Prototype and jQuery, offer nicer-looking means of colle
 
 Note: Tab labels will be either the header content or the heading's TITLE value.
 
-== How it works
+## How it works
 
 Content is split using the first heading level (H1-H6) or HEADING element encountered within the "tabbed" container.
 
-
+## Changelog
+[Changelog](CHANGELOG.md)
 
 ## License
 
