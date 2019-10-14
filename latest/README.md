@@ -1,23 +1,24 @@
-== TabInterface
+# TabInterface
 
 TabInterface generates all of the code necessary to create an accessible tabbed interface in JavaScript.
 
-== Current Version
+## Current Version
 
-1.2 (29 September 2010)
+* 1.3 (5 April 2011)
 
-== Requirements
+## Requirements
 
 None.
 
-== License
+## Use
 
-TabInterface is distributed under the liberal MIT License.
+To use, simply include TabInterface.js (found in ./min) and then classify elements you want tabbed as "tabbed". Then add a new anonymous function to your load event (`window` or DOM). For example:
 
-== Use
+## Demo
 
-To use, simply include TabInterface.js (found in ./src) and then classify elements you want tabbed as "tabbed". Then add a new anonymous function to your load event (`window` or DOM). For example:
+A demo is included in the ./demo directory.
 
+```javascript
 if( typeOf( TabInterface ) != 'undefined' &&
     document.getElementById &&
     document.getElementsByTagName &&
@@ -36,15 +37,18 @@ if( typeOf( TabInterface ) != 'undefined' &&
     }
   } );
 }
-
+```
 Many libraries, such as Prototype and jQuery, offer nicer-looking means of collecting elements by CLASS and and those could certainly be substituted for the brute force testing seen above.
 
 Note: Tab labels will be either the header content or the heading's TITLE value.
 
-== How it works
+## How it works
 
 Content is split using the first heading level (H1-H6) or HEADING element encountered within the "tabbed" container.
 
-== Demo
+## Changelog
+[See the changes](CHANGELOG.md)
 
-A demo is included in the ./demo directory.
+## License
+
+TabInterface is distributed under the liberal [MIT License](LICENSE.md)

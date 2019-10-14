@@ -2,17 +2,18 @@
 Function:		TabInterface()
 Author:			Aaron Gustafson (aaron at easy-designs dot net)
 Creation Date:	7 December 2006
-Version:		1.3
+Version:		1.4
 Homepage:		http://github.com/easy-designs/TabInterface.js
 License:		MIT License (see MIT-LICENSE)
 ------------------------------------------------------------------------------*/
-function TabInterface( _cabinet, _i ){
+;function TabInterface( _cabinet, _i ){
 	// Public Properties
-	this.Version = '1.3'; // version
-
-	// Private Properties
+	this.Version = '1.5'; // version
+	
+	// make sure we have a unique iterator if one wasn’t passed
+	_i = _i || ( new Date() ).getTime();
+	
 	var
-	_active	= false, // ID of the active "folder"
 	// the tab list
 	_index	= document.createElement( 'ul' ),
 	// prototype elements
@@ -24,24 +25,25 @@ function TabInterface( _cabinet, _i ){
 	// Private Methods
 	function initialize()
 	{
-		var _id, node, nextNode,
-		headers = [ 'header', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ],
-		i, len, _tag, rexp,
-		arr, folder, tab, heading;
+		var
+		headers	= [ 'header', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ],
+		tag		= false, 
+		id, node, nextNode, i, len, rexp, arr, folder, folder_id, tab, tab_id, heading;
 
 		// set the id
-		_id = _cabinet.getAttribute( 'id' ) || 'folder-' + _i;
+		id = _cabinet.getAttribute( 'id' ) || 'folder-' + _i;
 		if ( !_cabinet.getAttribute( 'id' ) )
 		{
-			_cabinet.setAttribute( 'id', _id );
+			_cabinet.setAttribute( 'id', id );
 		}
 
-		// set the ARIA roles
-		_cabinet.setAttribute( 'role', 'application' );
+		// set the ARIA roles, tabindexes & base classes
 		_index.setAttribute( 'role', 'tablist' );
+		addClassName( _index, 'index' );
 		_els.section.setAttribute( 'role', 'tabpanel' );
 		_els.section.setAttribute( 'aria-hidden', 'true' );
 		_els.section.setAttribute( 'tabindex', '-1' );
+		addClassName( _els.section, 'folder' );
 		_els.li.setAttribute( 'role', 'tab' );
 		_els.li.setAttribute( 'aria-selected', 'false' );
 		_els.li.setAttribute( 'tabindex', '-1' );
@@ -64,61 +66,64 @@ function TabInterface( _cabinet, _i ){
 		{
 			if ( _cabinet.firstChild.nodeName.toLowerCase() == headers[i] )
 			{
-				_tag = headers[i];
+				tag = headers[i];
 				break;
 			}
 		}
 
-		// flip it on
-		addClassName( _cabinet, 'tabbed-on' );
-		removeClassName( _cabinet, 'tabbed' );
-		// establish the folders
-		rexp = new RegExp( '<(' + _tag + ')', 'ig' );
-		arr	 = _cabinet.innerHTML.replace( rexp, "||||<$1" ).split( '||||' );
-		arr.shift();
-		_cabinet.innerHTML = '';
-		// add the index
-		addClassName( _index, 'index' );
-		_cabinet.appendChild( _index );
-		// re-insert the chunks
-		for ( i=0, len=arr.length; i<len; i++ )
+		if ( tag )
 		{
-			// build the section
-			folder = _els.section.cloneNode( true );
-			addClassName( folder, 'folder' );
-			folder.setAttribute( 'id', _id + '-' + i );
-			folder.setAttribute( 'aria-labelledby', _id + '-' + i + '-tab' );
-			folder.innerHTML = arr[i];
-			_cabinet.appendChild( folder );
-			// build the tab
-			tab = _els.li.cloneNode( true );
-			tab.setAttribute( 'id', _id + '-' + i + '-tab' );
-			tab.setAttribute( 'aria-controls', _id + '-' + i );
-			tab.setAttribute( 'aria-describedby', _id + '-' + i );
-			tab.onclick = swap;		  // set the action
-			tab.onkeydown = moveFocus;  // add the keyboard control
-			tab.onfocus = swap;
-			heading = folder.getElementsByTagName( _tag )[0];
-			if ( heading.getAttribute( 'title' ) )
+			// flip it on
+			addClassName( _cabinet, 'tabbed-on' );
+			removeClassName( _cabinet, 'tabbed' );
+			// establish the folders
+			rexp = new RegExp( '<(' + tag + ')', 'ig' );
+			arr	 = _cabinet.innerHTML.replace( rexp, "||||<$1" ).split( '||||' );
+			arr.shift();
+			_cabinet.innerHTML = '';
+			// add the index
+			_cabinet.appendChild( _index );
+			// re-insert the chunks
+			for ( i=0, len=arr.length; i<len; i++ )
 			{
-				tab.innerHTML = heading.getAttribute( 'title' );
-			}
-			else
-			{
-				tab.innerHTML = heading.innerHTML;
-				addClassName( heading, 'hidden' );
-			}
-			_index.appendChild( tab );
-			// active?
-			if ( i === 0 )
-			{
-				addClassName( folder, 'visible' );
-				folder.setAttribute( 'aria-hidden', 'false' );
-				tab.setAttribute( 'aria-selected', 'true' );
-				tab.setAttribute( 'tabindex', '0' );
-				_active = folder.getAttribute( 'id' );
-				_cabinet.setAttribute('aria-activedescendant',_active);
-				addClassName( tab, 'active' );
+				// establish the ids
+				folder_id	= id + '-' + i;
+				tab_id		= id + '-' + i + '-tab';
+				// build the section
+				folder = _els.section.cloneNode( true );
+				folder.setAttribute( 'id', folder_id );
+				folder.setAttribute( 'aria-labelledby', tab_id );
+				folder.innerHTML = arr[i];
+				_cabinet.appendChild( folder );
+				// build the tab
+				tab = _els.li.cloneNode( true );
+				tab.setAttribute( 'id', tab_id );
+				tab.setAttribute( 'aria-controls', folder_id );
+				tab.setAttribute( 'aria-describedby', folder_id );
+				tab.onclick		= swap;		  // set the action
+				tab.onfocus		= swap;
+				tab.onkeydown	= moveFocus;  // add the keyboard control
+				heading = folder.getElementsByTagName( tag )[0];
+				if ( heading.getAttribute( 'title' ) )
+				{
+					tab.innerHTML = heading.getAttribute( 'title' );
+				}
+				else
+				{
+					tab.innerHTML = heading.innerHTML;
+					addClassName( heading, 'hidden' );
+				}
+				_index.appendChild( tab );
+				// active?
+				if ( i === 0 )
+				{
+					_cabinet.setAttribute( 'aria-activedescendant', folder_id );
+					folder.setAttribute( 'aria-hidden', 'false' );
+					addClassName( folder, 'visible' );
+					tab.setAttribute( 'aria-selected', 'true' );
+					tab.setAttribute( 'tabindex', '0' );
+					addClassName( tab, 'active' );
+				}
 			}
 		}
 	}
@@ -126,24 +131,25 @@ function TabInterface( _cabinet, _i ){
 	{
 		e = ( e ) ? e : event;
 		var
-		tab = e.target || e.srcElement,
-		old_folder = document.getElementById( _active ),
-		old_tab = document.getElementById( _active + '-tab' ),
-		new_folder;
-		tab = getTab( tab );
-		new_folder = document.getElementById( tab.getAttribute( 'id' ).replace( '-tab', '' ) );
+		active_id	= _cabinet.getAttribute( 'aria-activedescendant' ),
+		old_panel	= document.getElementById( active_id ),
+		old_tab 	= document.getElementById( active_id + '-tab' ),
+		new_tab		= getTab( e.target || e.srcElement ),
+		new_panel	= document.getElementById( new_tab.getAttribute( 'aria-controls' ) );
+		// disable old tab & tabpanel
 		removeClassName( old_tab, 'active' );
 		old_tab.setAttribute( 'aria-selected', 'false' );
 		old_tab.setAttribute( 'tabindex', '-1' );
-		removeClassName( old_folder, 'visible' );
-		old_folder.setAttribute( 'aria-hidden', 'true' );
-		addClassName( tab, 'active' );
-		tab.setAttribute( 'aria-selected', 'true' );
-		tab.setAttribute( 'tabindex', '0' );
-		addClassName( new_folder, 'visible' );
-		new_folder.setAttribute( 'aria-hidden', 'false' );
-		_active = new_folder.getAttribute( 'id' );
-		_cabinet.setAttribute( 'aria-activedescendant', _active );
+		removeClassName( old_panel, 'visible' );
+		old_panel.setAttribute( 'aria-hidden', 'true' );
+		// activate the new tab & tabpanel
+		addClassName( new_tab, 'active' );
+		new_tab.setAttribute( 'aria-selected', 'true' );
+		new_tab.setAttribute( 'tabindex', '0' );
+		addClassName( new_panel, 'visible' );
+		new_panel.setAttribute( 'aria-hidden', 'false' );
+		// update the interface
+		_cabinet.setAttribute( 'aria-activedescendant', new_panel.getAttribute( 'id' ) );
 	}
 	function addClassName( e, c )
 	{
@@ -172,10 +178,9 @@ function TabInterface( _cabinet, _i ){
 	{
 		e = ( e ) ? e : event;
 		var
-		tab	 = e.target || e.srcElement,
+		tab	 = getTab( e.target || e.srcElement ),
 		key	 = e.keyCode || e.charCode,
 		pass = true;
-		tab = getTab( tab );
 		switch ( key )
 		{
 			case 13: // enter
@@ -216,11 +221,11 @@ function TabInterface( _cabinet, _i ){
 		{
 			if ( direction == 'previous' )
 			{
-				tab.parentNode.childNodes[0].focus();
+				tab.parentNode.firstChild.focus();
 			}
 			else
 			{
-				tab.parentNode.childNodes[tab.parentNode.childNodes.length-1].focus();
+				tab.parentNode.lastChild.focus();
 			}
 		}
 		else
@@ -236,11 +241,11 @@ function TabInterface( _cabinet, _i ){
 			{
 				if ( direction == 'next' )
 				{
-					tab.parentNode.childNodes[0].focus();
+					tab.parentNode.firstChild.focus();
 				}
 				else
 				{
-					tab.parentNode.childNodes[tab.parentNode.childNodes.length-1].focus();
+					tab.parentNode.lastChild.focus();
 				}
 			}
 		}
