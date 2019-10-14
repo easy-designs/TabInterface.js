@@ -1,3 +1,7 @@
+## v1.5* (2019-10-14)
+
+* removed the "application" `role`
+
 ## v1.4* (2011-12-03)
 
 * Made ARIA properties the means by which data about the tab interface is stored (rather than internal variables)
