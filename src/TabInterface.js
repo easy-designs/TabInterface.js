@@ -38,7 +38,6 @@ License:		MIT License (see MIT-LICENSE)
 		}
 
 		// set the ARIA roles, tabindexes & base classes
-		_cabinet.setAttribute( 'role', 'application' );
 		_index.setAttribute( 'role', 'tablist' );
 		addClassName( _index, 'index' );
 		_els.section.setAttribute( 'role', 'tabpanel' );
