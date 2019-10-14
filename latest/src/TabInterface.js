@@ -2,7 +2,7 @@
 Function:		TabInterface()
 Author:			Aaron Gustafson (aaron at easy-designs dot net)
 Creation Date:	7 December 2006
-Version:		1.4
+Version:		1.5
 Homepage:		http://github.com/easy-designs/TabInterface.js
 License:		MIT License (see MIT-LICENSE)
 ------------------------------------------------------------------------------*/
