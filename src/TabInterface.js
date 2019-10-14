@@ -8,7 +8,7 @@ License:		MIT License (see MIT-LICENSE)
 ------------------------------------------------------------------------------*/
 ;function TabInterface( _cabinet, _i ){
 	// Public Properties
-	this.Version = '1.4'; // version
+	this.Version = '1.5'; // version
 	
 	// make sure we have a unique iterator if one wasn’t passed
 	_i = _i || ( new Date() ).getTime();
